@@ -15,9 +15,14 @@ body {
     background: url('https://hpmedia.bloomsbury.com/rep/g/page-background%20-%20product.png');
     color: black;
     text-align: center;
+    font-family: 'Indie Flower', cursive;
 }
 
 img {
     width: 550px;
     height: 350px;
+}
+
+#title {
+    font-family: 'Sigmar One', cursive;
 }

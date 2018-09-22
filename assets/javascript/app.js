@@ -196,12 +196,11 @@ function displayImage(){
 
 $("body").on("click", "#reset", function(){
     
-    totalCorrect = 0;
+    correctNum = 0;
     incorrectNum = 0;
     unAnswered = 0;
     counter = 0;
-    time;
-    timerCounter = 30;
+    timerStart = 30;
     countDown();
     showQuestion();
 });
