@@ -5,41 +5,57 @@ var counter = 0;
 var time;
 var timerStart = 30;
 
-var questionsArray = [
-    "How many presents did Dudley originally get on his birthday before screaming at Petunia for more?",
-    "Who was the first person to get sorted into a Hogwarts house?",
-    "What Bertie Bott’s Every Flavour Beans did Dumbledore have the most unfortunate encounter with when he was younger?",
-    "In Transfiguration class, what object do the students have to change their animals into?",
-    "Who does Hermione take a hair from for the Polyjuice Potion, which accidentally turned out to be a cat hair?",
-    "What is Gilderoy Lockhart’s favorite color?",
-    "When was the first time Harry heard about Sirius Black?",
-    "During Harry’s first night back at Hogwarts, he and his dorm-mates eat something which allows them to imitate animals. Which animal does Seamus imitate?",
-    "What time do Harry and Hermione travel back to in order to save Buckbeak and Sirius?",
-    "In what order do the champions pick their dragons?"
-];
-var answersArray = [
-    ["26", "27", "36", "37"],
-    ["Harry Potter", "Hannah Abbott", "Draco Malfoy", "Hermione Granger"],
-    ["Vomit-flavored", "Bogy-flavored", "Earwax-flavored", "Dirt-flavored"],
-    ["Fruit bowls", "Water goblets", "Ice pitcher", "Tea cups"],
-    ["Pansy Parkinson", "Millicent Bulstrode", "Daphne Greengrass", "Tracey Davis"],
-    ["Lavender", "Cerulean", "Lilac", "Periwinkle"],
-    ["In Diagon Alley", "On the Knight Bus", "In the Leaky Cauldron", "On the TV in the Dursley house"],
-    ["Monkey", "Elephant", "Lion", "Bird"],
-    ["6:30pm", "7:00pm", "7:30pm", "8:00pm"],
-    ["Krum, Cedric, Fleur, Harry", "Fleur, Cedric, Krum, Harry", "Krum, Fleur, Cedric, Harry", "Fleur, Krum, Cedric, Harry"],
-];
-var correctArray = [
-    "36",
-    "Hermione Granger",
-    "Vomit-flavored",
-    "Water goblets", 
-    "Millicent Bulstrode",
-    "Lilac",
-    "On the Knight Bus",
-    "Monkey",
-    "7:30pm",
-    "Fleur, Krum, Cedric, Harry"
+var questionsData = [
+    {
+        question: "How many presents did Dudley originally get on his birthday before screaming at Petunia for more?",
+        answers: ["26", "27", "36", "37"],
+        correct: "36"
+    },
+    {
+        question: "Who was the first person to get sorted into a Hogwarts house?",
+        answers: ["Harry Potter", "Hannah Abbott", "Draco Malfoy", "Hermione Granger"],
+        correct: "Hermione Granger"
+    },
+    {
+        question: "What Bertie Bott’s Every Flavour Beans did Dumbledore have the most unfortunate encounter with when he was younger?",
+        answers:["Vomit-flavored", "Bogy-flavored", "Earwax-flavored", "Dirt-flavored"],
+        correct: "Vomit-flavored"
+    },
+    {
+        question: "In Transfiguration class, what object do the students have to change their animals into?",
+        answers: ["Fruit bowls", "Water goblets", "Ice pitcher", "Tea cups"],
+        correct: "Water goblets"
+    },
+    {
+        question: "Who does Hermione take a hair from for the Polyjuice Potion, which accidentally turned out to be a cat hair?",
+        answers: ["Pansy Parkinson", "Millicent Bulstrode", "Daphne Greengrass", "Tracey Davis"],
+        correct: "Millicent Bulstrode"
+    },
+    {
+        question: "What is Gilderoy Lockhart’s favorite color?",
+        answers: ["Lavender", "Cerulean", "Lilac", "Periwinkle"],
+        correct: "Lilac"
+    },
+    {
+        question: "When was the first time Harry heard about Sirius Black?",
+        answers: ["In Diagon Alley", "On the Knight Bus", "In the Leaky Cauldron", "On the TV in the Dursley house"],
+        correct: "On the Knight Bus"
+    },
+    {
+        question: "During Harry’s first night back at Hogwarts, he and his dorm-mates eat something which allows them to imitate animals. Which animal does Seamus imitate?",
+        answers: ["Monkey", "Elephant", "Lion", "Bird"],
+        correct: "Monkey"
+    },
+    {
+        question: "What time do Harry and Hermione travel back to in order to save Buckbeak and Sirius?",
+        answers: ["6:30pm", "7:00pm", "7:30pm", "8:00pm"],
+        correct: "7:30pm"
+    },
+    {
+        question: "In what order do the champions pick their dragons?",
+        answers: ["Krum, Cedric, Fleur, Harry", "Fleur, Cedric, Krum, Harry", "Krum, Fleur, Cedric, Harry", "Fleur, Krum, Cedric, Harry"],
+        correct: "Fleur, Krum, Cedric, Harry"
+    }   
 ];
 
 var Q = ["A.","B.","C.","D."]
@@ -84,10 +100,10 @@ function showQuestion(){
     console.log(counter);
     contentBuild();
 
-    $(".gameDiv").append($("<h3 class='text-center'>" + questionsArray[counter] + "</h3>"));
+    $(".gameDiv").append($("<h3 class='text-center'>" + questionsData[counter].question + "</h3>"));
 
     for (var i=0; i < 4; i++){
-    $(".gameDiv").append($("<h3 class='answer'>"+Q[i]+" "+ answersArray[counter][i] + "</h3>"));
+    $(".gameDiv").append($("<h3 class='answer'>"+Q[i]+" "+ questionsData[counter].answers[i] + "</h3>"));
     }
     console.log(counter);
 
@@ -100,7 +116,7 @@ function timeout(){
     contentBuild();
 
     $(".gameDiv").append($("<h3 class='text-center'> You ran out of time!</h3>"));
-    $(".gameDiv").append($("<h3>The correct answer is: "+correctArray[counter] + "</h3>"));
+    $(".gameDiv").append($("<h3>The correct answer is: "+ questionsData[counter].correct + "</h3>"));
 
     setTimeout(pause, 2000);
 };
@@ -110,10 +126,10 @@ $("body").on("click", ".answer", function(event){
     var userChoice = $(this).text();
     var userAnswer = userChoice.substring(userChoice.indexOf(".")+2);
     console.log(userChoice);
-    console.log(correctArray[counter]);
+    console.log(questionsData[counter].correct);
     console.log(userAnswer);
 
-    if (userAnswer === correctArray[counter]){
+    if (userAnswer === questionsData[counter].correct){
         showCorrect();
     } else {
         showIncorrect();
@@ -127,7 +143,7 @@ function showCorrect(){
     correctNum++;
     contentBuild();
 
-    $(".gameDiv").append($("<h3 class='text-center'>Correct! The answer is: "+correctArray[counter]+"</h3>"));
+    $(".gameDiv").append($("<h3 class='text-center'>Correct! The answer is: "+ questionsData[counter].correct +"</h3>"));
 
     setTimeout(pause, 2000);
 };
@@ -136,7 +152,7 @@ function showIncorrect(){
     incorrectNum++;
     contentBuild();
 
-    $(".gameDiv").append($("<h3 class='text-center'>Incorrect! The answer is: "+correctArray[counter]+"</h3>"));
+    $(".gameDiv").append($("<h3 class='text-center'>Incorrect! The answer is: "+ questionsData[counter].correct +"</h3>"));
 
     setTimeout(pause, 2000);
 };
